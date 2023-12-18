@@ -12,10 +12,11 @@ RUN apt-get update && apt-get install -y maven
 
 COPY . .
 
-RUN mvn clean install -DskipTests
+RUN mvn clean package -DskipTests
 
 # Copy the JAR file into the container
-COPY target/to-do-list-0.0.1-SNAPSHOT.jar .
+COPY /app/target/*.jar app.jar
 
 # Specify the command to run on container startup
-ENTRYPOINT ["java", "-jar", "to-do-list-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
